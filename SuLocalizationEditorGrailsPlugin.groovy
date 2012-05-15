@@ -1,6 +1,6 @@
 import org.grails.plugins.localization.*
 
-class SuLocalizationsGrailsPlugin {
+class SuLocalizationEditorGrailsPlugin {
     def version = "2.0.0"
     def dependsOn = [:]
 
