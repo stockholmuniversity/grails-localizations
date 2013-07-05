@@ -1,5 +1,6 @@
 package org.grails.plugins.localization
 
+import groovy.transform.EqualsAndHashCode
 import grails.util.GrailsWebUtil
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
@@ -7,7 +8,8 @@ import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.support.WebApplicationContextUtils
 import org.springframework.web.servlet.support.RequestContextUtils
 
-class Localization {
+@EqualsAndHashCode
+class Localization implements Serializable {
 
     private static loaded = false
     private static cache = new LinkedHashMap((int) 16, (float) 0.75, (boolean) true)
