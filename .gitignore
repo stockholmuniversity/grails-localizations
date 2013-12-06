@@ -5,7 +5,9 @@
 .settings
 eclipse
 stacktrace.log
-target
 /plugins
-/web-app/plugins
-/web-app/WEB-INF/classes
+.idea
+*.iml
+target/
+web-app/
+plugin.xml
