@@ -1,8 +1,8 @@
 import org.grails.plugins.localization.*
 
-class SuLocalizationsGrailsPlugin {
-  def version = "2.0.0"
-  def dependsOn = [:]
+class SuLocalizationEditorGrailsPlugin {
+    def version = "2.0.0"
+    def dependsOn = [:]
 
   def author = "Paul Fernley"
   def authorEmail = "paul@pfernley.orangehome.co.uk"
