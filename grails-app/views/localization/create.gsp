@@ -22,7 +22,7 @@
             </div>
             </g:hasErrors>
             <g:form action="save" method="post" >
-                <g:render plugin="localizations" template="dialog" model="[localization: localization]" />
+                <g:render template="dialog" model="[localization: localization]" plugin='su-localization-editor' />
                 <div class="buttons">
                     <span class="button"><input class="save" type="submit" value="${message(code:'create', 'default':'Create')}" /></span>
                 </div>
