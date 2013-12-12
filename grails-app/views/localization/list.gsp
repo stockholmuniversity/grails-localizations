@@ -46,7 +46,7 @@
                     <g:each in="${localizationList}" status="i" var="localization">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-                            <td><g:link action="show" id="${localization.id}">${fieldValue(bean:localization, field:'code')}</g:link></td>
+                            <td><g:link action="show" id="${localization.code}">${fieldValue(bean:localization, field:'code')}</g:link></td>
 
                             <td>${localization.locales()?.size()}</td>
 

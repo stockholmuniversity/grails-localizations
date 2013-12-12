@@ -66,6 +66,7 @@ class LocalizationController {
         params.order = params.order ? params.order : (params.sort ? 'desc' : 'asc')
         params.sort = params.sort ?: "code"
         def lst = Localization.search(params)
+
         render(view: 'list', model: [
                 localizationList: lst,
                 localizationListCount: lst.size(),
@@ -74,9 +75,9 @@ class LocalizationController {
     }
 
     def show = {
-        withLocalization { localization ->
-            return [ localization : localization ]
-        }
+      def localizations = Localization.findAllByCode(params.id)
+
+      [code: params.id, localizations: localizations?.sort { it?.locale }]
     }
 
     def delete = {
