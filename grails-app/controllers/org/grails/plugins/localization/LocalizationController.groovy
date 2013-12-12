@@ -75,9 +75,17 @@ class LocalizationController {
     }
 
     def show = {
-      def localizations = Localization.findAllByCode(params.id)
+      def localizations = Localization.findAllByCode(params.code)
 
-      [code: params.id, localizations: localizations?.sort { it?.locale }]
+      def locales = grailsApplication.config.localizations.locales ?: ['*']
+
+      def missingLocales = locales - localizations?.collect { it?.locale }
+
+      [
+              code: params.code,
+              missingLocales: missingLocales,
+              localizations: localizations?.sort { it?.locale }
+      ]
     }
 
     def delete = {

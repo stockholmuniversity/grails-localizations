@@ -23,14 +23,7 @@
                     <tbody>
 
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="localization.locale" default="Locale" />:</td>
-
-                            <td valign="top" class="value">${fieldValue(bean:localization, field:'locale')}</td>
-
-                        </tr>
-
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="localization.text" default="Text" />:</td>
+                            <td valign="top" class="prop" style="width: 1px">${fieldValue(bean:localization, field:'locale')}</td>
 
                             <td valign="top" class="value">${fieldValue(bean:localization, field:'text')}</td>
 
@@ -48,6 +41,15 @@
                   </g:form>
                 </div>
                 </g:each>
+            </div>
+            <div class="buttons">
+              <g:each in="${missingLocales}" var="missingLocale">
+                <g:form>
+                  <input type="hidden" name="code" value="${code}" />
+                  <input type="hidden" name="locale" value="${missingLocale}" />
+                  <span class="button"><g:actionSubmit class="create" action="create" value="${message(code:'create', 'default':'Create')} ${missingLocale}" /></span>
+                </g:form>
+              </g:each>
             </div>
         </div>
     </body>
