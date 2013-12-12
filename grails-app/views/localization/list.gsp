@@ -12,23 +12,21 @@
             <span class="menuButton"><g:link class="create" action="create"><g:message code="localization.new" default="New Localization" /></g:link></span>
         </div>
 
-        <div>
-            <g:form action="search" method="GET">
-                Search: <input name="q" size="48" value="${params.q}"/>
-                <g:select name="locale" from="${uniqLocales}" noSelection="['':'-Select locale-']" value="${params.locale}" />
-                <g:submitButton name="search" class="btn btn-small" value="Search"/>
-                <g:if test="${params.q}">
-                    <g:link class="btn btn-small" action="list">Reset</g:link>
-                </g:if>
-            </g:form>
-        </div>
-
         <div class="body">
             <h1><g:message code="localization.list" default="Localization List" /></h1>
             <g:if test="${flash.message}">
             <div class="message"><g:message code="${flash.message}" args="${flash.args}" default="${flash.defaultMessage}" /></div>
             </g:if>
-            <g:localizationCriteria exclude="relevance"/>
+
+          <div>
+            <g:form action="search" method="GET">
+              Search: <input name="q" size="48" value="${params.q}"/>
+              <g:submitButton name="search" class="btn btn-small" value="Search"/>
+              <g:if test="${params.q}">
+                <g:link class="btn btn-small" action="list">Reset</g:link>
+              </g:if>
+            </g:form>
+          </div>
             <div class="list">
                 <table>
                     <thead>

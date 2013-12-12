@@ -338,9 +338,6 @@ class Localization implements Serializable {
     static search(params) {
         def expr = "%${params.q}%".toString().toLowerCase()
         Localization.createCriteria().list(limit: params.max, order: params.order, sort: params.sort) {
-            if(params.locale) {
-                eq 'locale', params.locale
-            }
             or {
                 ilike 'code', expr
                 ilike 'text', expr
