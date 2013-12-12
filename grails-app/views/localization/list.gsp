@@ -34,6 +34,8 @@
 
                    	        <g:sortableColumn property="code" title="Code" titleKey="localization.code" params="${params}" />
 
+                   	        <th>#</th>
+
                    	        <g:sortableColumn property="locale" title="Locale" titleKey="localization.locale" params="${params}" />
 
                    	        <g:sortableColumn property="text" title="Text" titleKey="localization.text" params="${params}" />
@@ -45,6 +47,8 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
                             <td><g:link action="show" id="${localization.id}">${fieldValue(bean:localization, field:'code')}</g:link></td>
+
+                            <td>${localization.locales()?.size()}</td>
 
                             <td>${fieldValue(bean:localization, field:'locale')}</td>
 
