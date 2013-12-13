@@ -43,7 +43,7 @@
 
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="text">${fieldValue(bean:localization, field:'locale')}:</label>
+                                    <label for="text">${fieldValue(bean:localization, field:'locale') ?: message(code: "localization.text", default: "Text")}:</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:localization,field:'text','errors')}">
                                     <textarea rows="5" cols="40" name="text">${fieldValue(bean:localization, field:'text')}</textarea>&nbsp;<g:localizationHelpBalloon code="localization.text" />
