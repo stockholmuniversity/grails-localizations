@@ -10,6 +10,9 @@
             <span class="menuButton"><a class="home" href="${createLink(uri: '/', absolute: true)}"><g:message code="home" default="Home" /></a></span>
             <g:localizationMenuButton/>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="localization.new" default="New Localization" /></g:link></span>
+            <g:if test="${incomplete}">
+              <span class="menuButton"><g:link action="correctIncomplete"><g:message code="localization.correctIncomplete" default="Correct {0} incomplete codes" args="[incomplete?.size()]" /></g:link></span>
+            </g:if>
         </div>
 
         <div class="body">

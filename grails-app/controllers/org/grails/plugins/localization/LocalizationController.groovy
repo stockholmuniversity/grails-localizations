@@ -54,10 +54,13 @@ class LocalizationController {
             lst = Localization.list( params )
         }
 
+        def incomplete = Localization.findAllIncomplete()
+
         [
                 localizationList: lst,
                 localizationListCount: Localization.count(),
-                uniqLocales: uniqLocales
+                uniqLocales: uniqLocales,
+                incomplete: incomplete
         ]
     }
 
@@ -77,7 +80,7 @@ class LocalizationController {
     def show = {
       def localizations = Localization.findAllByCode(params.code)
 
-      def locales = grailsApplication.config.localizations.locales ?: ['*']
+      def locales = grailsApplication?.config?.localizations?.locales ?: ['*']
 
       def missingLocales = locales - localizations?.collect { it?.locale }
 
@@ -247,6 +250,14 @@ class LocalizationController {
       render "$padding=${localizationsMap as JSON};"
     }
 
+    def correctIncomplete = {
+      def incomplete = Localization.findAllIncomplete()
+
+      def matrix = incomplete.collect { [it, Localization.findMissingLocalesByCode(it)] }
+
+      [matrix: matrix]
+    }
+
     private def withLocalization(id="id", Closure c) {
         def localization = Localization.get(params[id])
         if(localization) {
@@ -258,5 +269,4 @@ class LocalizationController {
             redirect(action:list)
         }
     }
-
 }

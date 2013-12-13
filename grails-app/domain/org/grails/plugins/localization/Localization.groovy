@@ -354,4 +354,35 @@ class Localization implements Serializable {
         }
     }
 
+    static findAllIncomplete() {
+      def grailsApplication = findGrailsApplication()
+      def maxLocales = grailsApplication?.config?.localizations?.locales?.size() ?: 1
+
+      def lst = Localization.createCriteria().list() {
+        projections {
+          property('code')
+          count('locale')
+          groupProperty('code')
+          order('code')
+        }
+      }
+
+      lst.removeAll { it[1] >= maxLocales }
+
+      lst.collect { it[0] }
+    }
+
+    static findMissingLocalesByCode(def code) {
+      def grailsApplication = findGrailsApplication()
+      def allLocales = grailsApplication?.config?.localizations?.locales ?: ['*']
+
+      def locales = Localization.createCriteria().list() {
+        projections {
+          property('locale')
+          eq('code', code)
+        }
+      }
+
+      allLocales - locales
+    }
 }
