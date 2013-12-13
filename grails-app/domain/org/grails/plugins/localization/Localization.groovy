@@ -2,8 +2,6 @@ package org.grails.plugins.localization
 
 import groovy.transform.EqualsAndHashCode
 import grails.util.GrailsWebUtil
-import grails.util.Environment
-import grails.util.BuildSettingsHolder
 import org.codehaus.groovy.grails.plugins.GrailsPluginUtils
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.springframework.web.context.request.RequestContextHolder
@@ -53,6 +51,27 @@ class Localization implements Serializable {
           return new Locale(locale)
         default:
           return null
+      }
+    }
+
+    def locales() {
+      Localization.createCriteria().list() {
+        eq ('code', code)
+        projections {
+          property('locale')
+        }
+      }
+    }
+
+    def otherTexts() {
+      Localization.createCriteria().list() {
+        eq ('code', code)
+        ne ('locale', locale)
+        projections {
+          property('locale')
+          property('text')
+        }
+        order('locale')
       }
     }
 
@@ -338,9 +357,6 @@ class Localization implements Serializable {
     static search(params) {
         def expr = "%${params.q}%".toString().toLowerCase()
         Localization.createCriteria().list(limit: params.max, order: params.order, sort: params.sort) {
-            if(params.locale) {
-                eq 'locale', params.locale
-            }
             or {
                 ilike 'code', expr
                 ilike 'text', expr
@@ -348,4 +364,35 @@ class Localization implements Serializable {
         }
     }
 
+    static findAllIncomplete() {
+      def grailsApplication = findGrailsApplication()
+      def maxLocales = grailsApplication?.config?.localizations?.locales?.size() ?: 1
+
+      def lst = Localization.createCriteria().list() {
+        projections {
+          property('code')
+          count('locale')
+          groupProperty('code')
+          order('code')
+        }
+      }
+
+      lst.removeAll { it[1] >= maxLocales }
+
+      lst.collect { it[0] }
+    }
+
+    static findMissingLocalesByCode(def code) {
+      def grailsApplication = findGrailsApplication()
+      def allLocales = grailsApplication?.config?.localizations?.locales ?: ['*']
+
+      def locales = Localization.createCriteria().list() {
+        projections {
+          property('locale')
+          eq('code', code)
+        }
+      }
+
+      allLocales - locales
+    }
 }

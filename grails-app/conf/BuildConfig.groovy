@@ -1,8 +1,18 @@
 grails.release.scm.enabled=false
 grails.project.work.dir = 'target'
-grails.plugin.repos.distribution.suGrailsPlugins = "svn+ssh://svn.it.su.se/svn/grails-plugins/"
-grails.plugin.repos.discovery.suGrailsPlugins = "http://svn.it.su.se/grails-plugins/"
-grails.project.repos.default = 'suGrailsPlugins'
+grails.project.class.dir = "target/classes"
+grails.project.test.class.dir = "target/test-classes"
+grails.project.test.reports.dir = "target/test-reports"
+
+grails.project.repos.default = 'su'
+grails.project.repos.su.url = "scpexe://git.it.su.se/afs/su.se/services/maven/it.su.se/maven2"
+grails.project.repos.su.type = "maven"
+
+grails.project.source.level = 1.7
+grails.project.target.level = 1.7
+
+grails.project.dependency.resolver = "maven" // or ivy
+
 grails.project.dependency.resolution = {
     inherits("global") {
     }
@@ -11,12 +21,14 @@ grails.project.dependency.resolution = {
         grailsPlugins()
         grailsHome()
         grailsCentral()
+        mavenLocal()
+        mavenCentral()
     }
     dependencies {
+      compile 'org.apache.maven:maven-model:3.1.1'
     }
     plugins {
-      build(":tomcat:$grailsVersion",
-            ":release:2.2.0") {
+      build(":release:3.0.1") {
         export = false
       }
     }

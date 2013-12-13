@@ -54,10 +54,13 @@ class LocalizationController {
             lst = Localization.list( params )
         }
 
+        def incomplete = Localization.findAllIncomplete()
+
         [
                 localizationList: lst,
                 localizationListCount: Localization.count(),
-                uniqLocales: uniqLocales
+                uniqLocales: uniqLocales,
+                incomplete: incomplete
         ]
     }
 
@@ -66,6 +69,7 @@ class LocalizationController {
         params.order = params.order ? params.order : (params.sort ? 'desc' : 'asc')
         params.sort = params.sort ?: "code"
         def lst = Localization.search(params)
+
         render(view: 'list', model: [
                 localizationList: lst,
                 localizationListCount: lst.size(),
@@ -74,9 +78,17 @@ class LocalizationController {
     }
 
     def show = {
-        withLocalization { localization ->
-            return [ localization : localization ]
-        }
+      def localizations = Localization.findAllByCode(params.code)
+
+      def locales = grailsApplication?.config?.localizations?.locales ?: ['*']
+
+      def missingLocales = locales - localizations?.collect { it?.locale }
+
+      [
+              code: params.code,
+              missingLocales: missingLocales,
+              localizations: localizations?.sort { it?.locale }
+      ]
     }
 
     def delete = {
@@ -134,7 +146,7 @@ class LocalizationController {
             flash.message = "localization.created"
             flash.args = ["${localization.id}"]
             flash.defaultMessage = "Localization ${localization.id} created"
-            redirect(action:show,id:localization.id)
+            redirect(action:show,id:localization.code)
         }
         else {
             render(view:'create',model:[localization:localization])
@@ -238,6 +250,14 @@ class LocalizationController {
       render "$padding=${localizationsMap as JSON};"
     }
 
+    def correctIncomplete = {
+      def incomplete = Localization.findAllIncomplete()
+
+      def matrix = incomplete.collect { [it, Localization.findMissingLocalesByCode(it)] }
+
+      [matrix: matrix]
+    }
+
     private def withLocalization(id="id", Closure c) {
         def localization = Localization.get(params[id])
         if(localization) {
@@ -249,5 +269,4 @@ class LocalizationController {
             redirect(action:list)
         }
     }
-
 }
