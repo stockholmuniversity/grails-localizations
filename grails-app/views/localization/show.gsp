@@ -25,21 +25,23 @@
                         <tr class="prop">
                             <td valign="top" class="prop" style="width: 1px">${fieldValue(bean:localization, field:'locale')}</td>
 
-                            <td valign="top" class="value">${fieldValue(bean:localization, field:'text')}</td>
+                            <td valign="top" class="value" style="width: 100%">${fieldValue(bean:localization, field:'text')}</td>
 
+                            <td>
+                              <div class="buttons" style="margin-bottom: 20px">
+                                <g:form>
+                                  <input type="hidden" name="id" value="${localization.id}" />
+                                  <g:if test="${localization.locale != '*'}">
+                                    <span class="button"><g:actionSubmit class="edit" action="Edit" value="${message(code:'edit', 'default':'Edit')}" /></span>
+                                  </g:if>
+                                  <span class="button"><g:actionSubmit class="delete" onclick="return confirm('${message(code:'delete.confirm', 'default':'Are you sure?')}');" action="Delete" value="${message(code:'delete', 'default':'Delete')}" /></span>
+                                </g:form>
+                              </div>
+                            </td>
                         </tr>
 
                     </tbody>
                 </table>
-                <div class="buttons" style="margin-bottom: 20px">
-                  <g:form>
-                    <input type="hidden" name="id" value="${localization.id}" />
-                    <g:if test="${localization.locale != '*'}">
-                      <span class="button"><g:actionSubmit class="edit" action="Edit" value="${message(code:'edit', 'default':'Edit')}" /></span>
-                    </g:if>
-                    <span class="button"><g:actionSubmit class="delete" onclick="return confirm('${message(code:'delete.confirm', 'default':'Are you sure?')}');" action="Delete" value="${message(code:'delete', 'default':'Delete')}" /></span>
-                  </g:form>
-                </div>
                 </g:each>
             </div>
             <div class="buttons">

@@ -65,6 +65,18 @@ class Localization implements Serializable {
       }
     }
 
+    def otherTexts() {
+      Localization.createCriteria().list() {
+        eq ('code', code)
+        ne ('locale', locale)
+        projections {
+          property('locale')
+          property('text')
+        }
+        order('locale')
+      }
+    }
+
     static String decodeMessage(String code, Locale locale) {
 
         def key = code + keyDelimiter + locale.getLanguage() + locale.getCountry()
