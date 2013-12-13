@@ -2,8 +2,6 @@ package org.grails.plugins.localization
 
 import groovy.transform.EqualsAndHashCode
 import grails.util.GrailsWebUtil
-import grails.util.Environment
-import grails.util.BuildSettingsHolder
 import org.codehaus.groovy.grails.plugins.GrailsPluginUtils
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.springframework.web.context.request.RequestContextHolder
