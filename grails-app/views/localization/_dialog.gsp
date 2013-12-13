@@ -8,6 +8,7 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:localization,field:'code','errors')}">
                                     <g:if test="${create && fieldValue(bean:localization,field:'code')}">
+                                      <input type="hidden" name="code" value="${fieldValue(bean:localization,field:'code')}" />
                                       <%= fieldValue(bean:localization,field:'code') %>
                                     </g:if>
                                     <g:else>
@@ -22,6 +23,7 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean:localization,field:'locale','errors')}">
                                     <g:if test="${create && fieldValue(bean:localization,field:'locale')}">
+                                      <input type="hidden" name="locale" value="${fieldValue(bean:localization,field:'locale')}" />
                                       <%= fieldValue(bean:localization,field:'locale') %>
                                     </g:if>
                                     <g:else>
