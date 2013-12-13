@@ -146,7 +146,7 @@ class LocalizationController {
             flash.message = "localization.created"
             flash.args = ["${localization.id}"]
             flash.defaultMessage = "Localization ${localization.id} created"
-            redirect(action:show,id:localization.id)
+            redirect(action:show,id:localization.code)
         }
         else {
             render(view:'create',model:[localization:localization])
