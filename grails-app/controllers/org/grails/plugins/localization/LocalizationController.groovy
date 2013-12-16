@@ -119,7 +119,7 @@ class LocalizationController {
                 flash.message = "localization.updated"
                 flash.args = [params.id]
                 flash.defaultMessage = "Localization ${params.id} updated"
-                redirect(action:show,id:localization.id)
+                redirect(action:show, params: [code: localization.code])
             }
             else {
                 render(view:'edit',model:[localization:localization])
@@ -146,7 +146,7 @@ class LocalizationController {
             flash.message = "localization.created"
             flash.args = ["${localization.id}"]
             flash.defaultMessage = "Localization ${localization.id} created"
-            redirect(action:show,id:localization.code)
+            redirect(action:show, params: [code: localization.code])
         }
         else {
             render(view:'create',model:[localization:localization])
