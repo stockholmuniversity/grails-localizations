@@ -1,7 +1,8 @@
 import org.grails.plugins.localization.*
 
 class SuLocalizationEditorGrailsPlugin {
-  String version = "2.2.4"
+  String version = "2.2.5"
+  String groupId = "se.su.it.grails.plugins"
   String grailsVersion = "2.4 > *"
   Map dependsOn = [:]
   String author = "Paul Fernley"
