@@ -5,5 +5,4 @@ class LocalizationsBootStrap {
   def init = { servletContext ->
     Localization.load()
   }
-
 }

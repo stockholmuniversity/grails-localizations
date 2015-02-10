@@ -14,22 +14,23 @@ grails.project.target.level = 1.7
 grails.project.dependency.resolver = "maven" // or ivy
 
 grails.project.dependency.resolution = {
-    inherits("global") {
+  inherits("global") {
+  }
+  log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+  repositories {
+    grailsPlugins()
+    grailsHome()
+    grailsCentral()
+    mavenLocal()
+    mavenCentral()
+  }
+  dependencies {
+    compile 'org.apache.maven:maven-model:3.1.1'
+  }
+  plugins {
+    build(":tomcat:7.0.55")
+    build(":release:3.0.1") {
+      export = false
     }
-    log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
-    repositories {
-        grailsPlugins()
-        grailsHome()
-        grailsCentral()
-        mavenLocal()
-        mavenCentral()
-    }
-    dependencies {
-      compile 'org.apache.maven:maven-model:3.1.1'
-    }
-    plugins {
-      build(":release:3.0.1") {
-        export = false
-      }
-    }
+  }
 }
