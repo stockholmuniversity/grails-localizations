@@ -26,6 +26,7 @@ grails.project.dependency.resolution = {
     compile 'org.tmatesoft.svnkit:svnkit:1.3.5'
   }
   plugins {
+    compile ":svn:1.0.2"
     build(":tomcat:7.0.55")
     build(":release:3.0.1") {
       export = false
