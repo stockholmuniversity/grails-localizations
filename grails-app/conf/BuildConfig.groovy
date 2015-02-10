@@ -21,6 +21,7 @@ grails.project.dependency.resolution = {
     mavenCentral()
   }
   dependencies {
+    compile 'org.apache.commons:commons-io:1.3.2'
     compile 'org.apache.maven:maven-model:3.1.1'
   }
   plugins {
