@@ -14,7 +14,7 @@ class LocalizationController {
   }
 
   def index() {
-    redirect(action:list,params:params)
+    redirect(action:'list',params:params)
   }
 
   // the delete, save and update actions only accept POST requests
@@ -106,7 +106,7 @@ class LocalizationController {
             flash.message = "localization.updated"
             flash.args = [params.id]
             flash.defaultMessage = "Localization ${params.id} updated"
-            redirect(action:show,id:localization.id)
+            redirect(action:'show',id:localization.id)
         } else {
             render(view:'edit',model:[localization:localization])
         }
@@ -137,13 +137,13 @@ class LocalizationController {
     }
   }
 
-  def cache = {
+  def cache() {
       return [stats: Localization.statistics()]
   }
 
   def reset = {
       Localization.resetAll()
-      redirect(action:cache)
+      redirect(action:'cache')
   }
 
   def imports = {
