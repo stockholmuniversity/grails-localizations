@@ -23,6 +23,7 @@ grails.project.dependency.resolution = {
   dependencies {
     compile 'org.apache.commons:commons-io:1.3.2'
     compile 'org.apache.maven:maven-model:3.1.1'
+    compile 'org.tmatesoft.svnkit:svnkit:1.3.5'
   }
   plugins {
     build(":tomcat:7.0.55")
